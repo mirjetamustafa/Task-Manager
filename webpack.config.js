@@ -44,5 +44,9 @@ export default {
       template: './src/pages/dashboard.html',
       filename: 'dashboard.html',
     }),
+    new HtmlWebpackPlugin({
+      template: './src/pages/register.html',
+      filename: 'register.html',
+    }),
   ],
 }
