@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  <script defer src="bundle.js"></script></head>
+  <body>
+    <div class="flex items-center justify-center h-screen bg-gray-50">
+      <div class="grid justify-center">
+        <div class="grid grid-cols-1 justify-items-center my-5">
+          <i
+            class="fa-solid fa-arrow-right-to-bracket p-2 bg-blue-600 text-white rounded-lg"
+          ></i>
+          <h1 class="text-2xl font-bold py-1">Welcome back</h1>
+          <p class="text-gray-500 py-1">Sign in to your account</p>
+        </div>
+
+        <div
+          class="border border-gray-200 bg-white shadow-xs rounded-md p-5 w-[450px]"
+        >
+          <form action="">
+            <div class="grid grid-cols-1 m-3">
+              <label for="" class="text-sm font-medium my-2">Email</label>
+              <input
+                id="email"
+                type="email"
+                class="border border-gray-200 rounded-md p-1"
+                placeholder="Email"
+              />
+            </div>
+
+            <div class="grid grid-cols-1 m-3">
+              <label for="" class="text-sm font-medium my-2">Password</label>
+
+              <input
+                id="password"
+                type="password"
+                class="border border-gray-200 rounded-md p-1"
+                placeholder="••••••••"
+              />
+            </div>
+
+            <button
+              id="loginBtn"
+              class="w-full bg-blue-600 text-white font-bold text-sm rounded-md cursor-pointer hover:bg-blue-500 my-3 py-2"
+            >
+              Login
+            </button>
+          </form>
+          <p class="text-gray-400 text-sm text-center my-5">
+            Don't have an account?
+            <a
+              href="./register.html"
+              id="signupBtn"
+              class="font-medium text-blue-600 hover:text-blue-500"
+              >Sign Up</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <script src="../bundle.js"></script> -->
+  </body>
+</html>

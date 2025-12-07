@@ -16,7 +16,7 @@ export default {
   devServer: {
     static: './dist',
     hot: true,
-    port: 5000,
+    port: 4000,
   },
   module: {
     rules: [
@@ -37,7 +37,12 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/pages/login.html',
+      filename: 'login.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/pages/dashboard.html',
+      filename: 'dashboard.html',
     }),
   ],
 }
