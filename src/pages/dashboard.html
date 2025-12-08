@@ -31,6 +31,121 @@
     </header>
     <div class="border border-gray-100 mt-1"></div>
 
+    <div class="flex flex-row">
+      <div class="basis-1/4 h-screen border-r border-gray-200">
+        <div
+          class="flex items-center gap-3 bg-gray-200 hover:bg-gray-100 px-6 py-4 m-5 rounded-lg cursor-pointer"
+        >
+          <i class="fa-regular fa-folder"></i>
+
+          <span class="text-gray-700 font-medium">All Tasks</span>
+        </div>
+
+        <div class="flex justify-between p-5">
+          <span class="text-gray-500 uppercase text-xs font-medium"
+            >Projects</span
+          >
+          <button
+            onclick="openModal()"
+            class="cursor-pointer text-gray-400 text-sm hover:text-gray-500"
+          >
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+
+        <div class="">
+          <div
+            id="modalOverlay"
+            class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+          ></div>
+
+          <div
+            id="createModal"
+            class="hidden fixed inset-0 flex items-center justify-center z-50"
+          >
+            <div class="bg-white rounded-2xl shadow-xl w-[520px] p-6 relative">
+              <div class="flex justify-between">
+                <h1 class="text- font-medium">Create Project</h1>
+                <button
+                  onclick="closeModal()"
+                  class="absolute right-4 top-6 cursor-pointer text-gray-400 hover:text-gray-500"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+
+              <div class="border-t border-gray-200 mt-1"></div>
+
+              <div class="mt-5">
+                <label class="font-medium text-sm text-gray-700"
+                  >Project Name</label
+                >
+                <input
+                  type="text"
+                  placeholder="e.g., Mrketing Camping"
+                  class="w-full mt-1 mb-4 px-3 py-2 border rounded-lg focus:outline-none focus:ring-blue-300"
+                />
+              </div>
+              <div class="mt-5">
+                <label class="font-medium text-sm text-gray-700">Color</label>
+                <div class="flex gap-2">
+                  <div
+                    data-color="#3b82f6"
+                    class="color-circle bg-blue-500 rounded-md"
+                  ></div>
+                  <div
+                    data-color="#a855f7"
+                    class="color-circle bg-purple-500 rounded-md"
+                  ></div>
+                  <div
+                    data-color="#22c55e"
+                    class="color-circle bg-green-500 rounded-md"
+                  ></div>
+                  <div
+                    data-color="#f59e0b"
+                    class="color-circle bg-yellow-500 rounded-md"
+                  ></div>
+                  <div
+                    data-color="#ef444"
+                    class="color-circle bg-red-500 rounded-md"
+                  ></div>
+                  <div
+                    data-color="#ec4899"
+                    class="color-circle bg-pink-500 rounded-md"
+                  ></div>
+                </div>
+
+                <div class="flex justify-between mt-8">
+                  <button
+                    onclick="closeModal()"
+                    class="w-1/2 mr-2 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    class="w-1/2 mr-2 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer"
+                  >
+                    Create
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-2">
+          <button
+            class="flex gap-2 p-2 cursor-pointer w-full hover:bg-gray-100 rounded-md"
+          >
+            <i class="fa-solid fa-circle text-sm text-blue-600 mt-1"></i>
+            <span class="text-sm">Personal</span>
+          </button>
+        </div>
+      </div>
+      <div class="basis-2/2 bg-blue-500 m-2">03</div>
+    </div>
+
     <!-- <script src="../bundle.js"></script> -->
   </body>
 </html>

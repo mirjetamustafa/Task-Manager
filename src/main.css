@@ -1,1 +1,14 @@
 @import 'tailwindcss';
+
+.color-circle {
+  width: 32px;
+  height: 32px;
+
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: 0.2s;
+}
+
+.color-circle.selected {
+  border-color: #2563eb;
+}
