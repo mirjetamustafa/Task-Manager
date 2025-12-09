@@ -18,10 +18,11 @@ export class TaskManager {
 
   toggleTask(id) {
     const task = this.tasks.find((t) => t.id === id)
+    if (task) task.competed = !task.competed
   }
 
   search(keyword) {
     const regex = new RegExp(keyword, 'i')
-    return this.addTask.tasks.filter((task) => regex.test(task.title))
+    return this.tasks.filter((task) => regex.test(task.title))
   }
 }
