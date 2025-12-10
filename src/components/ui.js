@@ -20,11 +20,15 @@ export function closeProject() {
   document.getElementById('modalProject').classList.add('hidden')
 }
 
-let selectedColor = '#3b82f6'
+let selectedColor = ''
 
 export function initColorPicker() {
   document.querySelectorAll('.color-circle').forEach((circle) => {
     circle.addEventListener('click', () => {
+      document.querySelectorAll('.color-circle').forEach((c) => {
+        c.classList.remove('ring-2', 'ring-gray-400')
+      })
+
       selectedColor = circle.dataset.color
       circle.classList.add('ring-2', 'ring-gray-400')
     })

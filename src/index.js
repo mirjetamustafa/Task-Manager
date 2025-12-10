@@ -41,6 +41,10 @@ cretaeprojectBtn.addEventListener('click', () => {
   projectManager.addProject(projectName, color)
   renderProject()
   closeModal()
+  projectNameInput.value = ''
+  document.querySelectorAll('.color-circle').forEach((c) => {
+    c.classList.remove('ring-2', 'ring-gray-400')
+  })
 })
 
 function renderProject() {
@@ -48,13 +52,32 @@ function renderProject() {
   list.innerHTML = ''
 
   projectManager.projects.forEach((project) => {
+    const div = document.createElement('div')
     const btn = document.createElement('button')
-    btn.className =
-      'flex gap-2 p-2 cursor-pointer w-full hover:bg-gray-100 rounded-md'
+    const btnIcon = document.createElement('button')
+    div.className = 'flex justify-between hover:bg-gray-100 rounded-md'
+    btn.className = 'flex gap-2 p-2 cursor-pointer w-full'
     btn.innerHTML = `
       <i class="fa-solid fa-circle text-sm mt-1" style="color:${project.color}"></i>
       <span class="text-sm">${project.name}</span>
   `
-    list.appendChild(btn)
+
+    btnIcon.className =
+      'p-2 cursor-pointer hover:bg-gray-100 text-gray-600 rounded-md'
+
+    btnIcon.innerHTML = `
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+  `
+
+    btnIcon.addEventListener('click', () => {
+      div.remove()
+
+      projectManager.deleteProject(project.id)
+    })
+
+    div.appendChild(btn)
+    div.appendChild(btnIcon)
+
+    list.appendChild(div)
   })
 }

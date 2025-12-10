@@ -15,4 +15,8 @@ export class ProjectManager {
     this.projects.push(project)
     return project
   }
+
+  deleteProject(id) {
+    this.projects = this.projects.filter((prev) => prev.id !== id)
+  }
 }
