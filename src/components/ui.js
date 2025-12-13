@@ -11,13 +11,13 @@ export function closeModal() {
 }
 
 export function createProject() {
-  document.getElementById('createProject').classList.remove('hidden')
-  document.getElementById('modalProject').classList.remove('hidden')
+  document.getElementById('openTaskModal')?.classList.remove('hidden')
+  document.getElementById('closeTaskModal')?.classList.remove('hidden')
 }
 
 export function closeProject() {
-  document.getElementById('createProject').classList.add('hidden')
-  document.getElementById('modalProject').classList.add('hidden')
+  document.getElementById('openTaskModal')?.classList.add('hidden')
+  document.getElementById('closeTaskModal')?.classList.add('hidden')
 }
 
 let selectedColor = ''
