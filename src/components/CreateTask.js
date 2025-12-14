@@ -1,14 +1,23 @@
-export default function renderTask() {
+export default function renderTask(taskManager) {
   const taskList = document.getElementById('task')
   taskList.innerHTML = ''
-  const createTasks = document.getElementById('createTasks')
+
+  let floatingBtn = document.querySelector('.floating-add-btn')
+  if (!floatingBtn) {
+    floatingBtn = document.createElement('button')
+    floatingBtn.className =
+      'floating-add-btn fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center z-50 cursor-pointer'
+    floatingBtn.setAttribute('data-open-task', '')
+    floatingBtn.innerHTML = '<i class="fa-solid fa-plus"></i>'
+    document.body.appendChild(floatingBtn)
+  }
 
   if (taskManager.tasks.length === 0) {
     const div = document.createElement('div')
-    div.className = 'flex flex-row justify-center justify-items-center'
+    div.className = 'absolute inset-0 flex flex-col items-center justify-center'
     div.innerHTML = `
       
-        <div class="mt-[100px]" id="createTasks">
+        <div class="mt-[200px]" >
           <p class="text-gray-500 text-center mb-5">No tasks yet</p>
           <button
            data-open-task
@@ -21,13 +30,17 @@ export default function renderTask() {
        
        
     `
-    createTasks.appendChild(div)
+    taskList.appendChild(div)
   } else {
     taskManager.tasks.forEach((task) => {
       const card = document.createElement('div')
 
-      card.className =
-        'border-l-4 border-red-500 m-2 p-2 bg-white shadow-sm rounded-md hover:shadow-lg'
+      let borderColor = 'border-gray-300'
+      if (task.priority === 'High') borderColor = 'border-red-500'
+      if (task.priority === 'Medium') borderColor = 'border-yellow-500'
+      if (task.priority === 'Low') borderColor = 'border-gray-300'
+
+      card.className = `border-l-4 ${borderColor} m-2 p-2 bg-white shadow-sm rounded-md hover:shadow-lg`
 
       card.innerHTML = `
      <div class="flex justify-between">
@@ -37,9 +50,9 @@ export default function renderTask() {
                 </button>
               </div>
               
-              <span class="text-gray-700 text-xs">
-                ${task.description}
-              </span>
+              <p class="text-gray-700 text-xs">
+                ${task.description || 'No description'}
+              </p>
 
               <div class="flex gap-3 mt-5">
                 <p

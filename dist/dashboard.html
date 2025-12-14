@@ -216,6 +216,7 @@
                       >Title</label
                     >
                     <input
+                      id="taskTitle"
                       type="text"
                       placeholder="Task title"
                       class="w-full mt-1 mb-4 px-3 py-2 border border-gray-200 outline-none rounded-lg focus:outline-none focus:ring-blue-300"
@@ -227,8 +228,8 @@
                       >Description</label
                     >
                     <textarea
+                      id="taskDescription"
                       name=""
-                      id=""
                       cols="30"
                       placeholder="Task description (optional)"
                       class="w-full mt-1 mb-4 px-3 py-2 border border-gray-200 outline-none rounded-lg focus:outline-none focus:ring-blue-300"
@@ -241,12 +242,12 @@
                     >
                     <select
                       name=""
-                      id=""
+                      id="taskProject"
                       class="w-full mt-1 mb-4 px-3 py-2 border border-gray-200 outline-none rounded-lg focus:outline-none focus:ring-blue-300"
                     >
-                      <option value="">Personal</option>
-                      <option value="">Work</option>
-                      <option value="">Ideas</option>
+                      <option value="Personal">Personal</option>
+                      <option value="Work">Work</option>
+                      <option value="Ideas">Ideas</option>
                     </select>
                   </div>
 
@@ -256,12 +257,12 @@
                     >
                     <select
                       name=""
-                      id=""
+                      id="taskStatus"
                       class="w-full mt-1 mb-4 px-3 py-2 border border-gray-200 outline-none rounded-lg focus:outline-none focus:ring-blue-300"
                     >
-                      <option value="">To Do</option>
-                      <option value="">In Progress</option>
-                      <option value="">Done</option>
+                      <option value="todo">To Do</option>
+                      <option value="inProgress">In Progress</option>
+                      <option value="done">Done</option>
                     </select>
                   </div>
 
@@ -271,12 +272,12 @@
                     >
                     <select
                       name=""
-                      id=""
+                      id="taskPriority"
                       class="w-full mt-1 mb-4 px-3 py-2 border border-gray-200 outline-none rounded-lg focus:outline-none focus:ring-blue-300"
                     >
-                      <option value="">Low</option>
-                      <option value="">Medium</option>
-                      <option value="">High</option>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
                     </select>
                   </div>
 
@@ -289,6 +290,7 @@
                     </button>
 
                     <button
+                      id="createTaskBtn"
                       class="w-1/2 mr-2 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer"
                     >
                       Create

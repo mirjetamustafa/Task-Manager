@@ -10,7 +10,7 @@ import {
   getSelectedColor,
   initColorPicker,
 } from './components/ui.js'
-import renderTask from './components/CreateTask.js'
+import renderTasks from './components/CreateTask.js'
 
 import { ProjectManager } from './components/projectManager.js'
 import { TaskManager } from './components/taskManager.js'
@@ -87,10 +87,36 @@ function renderProject() {
   })
 }
 
+const tasksBtn = document.getElementById('createTaskBtn')
+tasksBtn.addEventListener('click', () => {
+  const title = document.getElementById('taskTitle').value.trim()
+  const description = document.getElementById('taskDescription').value
+  const project = document.getElementById('taskProject').value
+  const status = document.getElementById('taskStatus').value
+  const priority = document.getElementById('taskPriority').value
+
+  if (!title) {
+    alert('This is required')
+    return
+  }
+  taskManager.addTask(title, description, project, status, priority)
+  renderTasks(taskManager)
+  closeProject()
+  document.getElementById('taskTitle').value = ''
+  document.getElementById('taskDescription').value = ''
+})
+
 document.addEventListener('click', (e) => {
   if (e.target.closest('[data-open-task]')) {
     createProject()
   }
 })
 
-renderTask(taskManager)
+const floatingBtn = document.createElement('button')
+floatingBtn.setAttribute('data-open-task', '')
+floatingBtn.className =
+  'fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center z-50 cursor-pointer'
+floatingBtn.innerHTML = '<i class="fa-solid fa-plus"></i>'
+document.body.appendChild(floatingBtn)
+
+renderTasks(taskManager)

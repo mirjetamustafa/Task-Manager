@@ -11,8 +11,8 @@ export function closeModal() {
 }
 
 export function createProject() {
-  document.getElementById('openTaskModal')?.classList.remove('hidden')
-  document.getElementById('closeTaskModal')?.classList.remove('hidden')
+  document.getElementById('openTaskModal').classList.remove('hidden')
+  document.getElementById('closeTaskModal').classList.remove('hidden')
 }
 
 export function closeProject() {
