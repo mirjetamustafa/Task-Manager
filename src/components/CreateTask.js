@@ -35,10 +35,22 @@ export default function renderTask(taskManager) {
     taskManager.tasks.forEach((task) => {
       const card = document.createElement('div')
 
-      let borderColor = 'border-gray-300'
-      if (task.priority === 'High') borderColor = 'border-red-500'
-      if (task.priority === 'Medium') borderColor = 'border-yellow-500'
-      if (task.priority === 'Low') borderColor = 'border-gray-300'
+      const priorityBorder = {
+        High: 'border-red-500',
+        Medium: 'border-yellow-500',
+        Low: 'border-gray-300',
+      }
+
+      const borderColor = priorityBorder[task.priority] || 'border-gray-300'
+
+      const statusClasses = {
+        done: 'bg-green-100 text-green-600',
+        inProgress: 'bg-blue-100 text-blue-600',
+        todo: 'bg-gray-100 text-gray-600',
+      }
+
+      const statusClass =
+        statusClasses[task.status] || 'bg-gray-200 text-gray-700'
 
       card.className = `border-l-4 ${borderColor} m-2 p-2 bg-white shadow-sm rounded-md hover:shadow-lg`
 
@@ -56,7 +68,7 @@ export default function renderTask(taskManager) {
 
               <div class="flex gap-3 mt-5">
                 <p
-                  class="bg-gray-200 text-gray-700 font-medium text-xs rounded-sm p-2"
+                  class="${statusClass} font-medium text-xs rounded-sm p-2"
                 >
                   ${task.status}
                 </p>
