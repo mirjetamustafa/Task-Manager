@@ -10,9 +10,12 @@ import {
   getSelectedColor,
   initColorPicker,
 } from './components/ui.js'
+
 import renderTasks from './components/CreateTask.js'
 import { ProjectManager } from './components/projectManager.js'
 import { TaskManager } from './components/taskManager.js'
+
+let activeProject = 'All'
 
 const projectManager = new ProjectManager()
 window.projectManager = projectManager
@@ -26,8 +29,6 @@ window.createProject = createProject
 window.closeProject = closeProject
 
 renderProject()
-
-// UI elements
 
 const cretaeprojectBtn = document.querySelector(
   '#createModal button.bg-blue-500'
@@ -61,6 +62,11 @@ function renderProject() {
     const btnIcon = document.createElement('button')
     div.className = 'flex justify-between hover:bg-gray-100 rounded-md'
     btn.className = 'flex gap-2 p-2 cursor-pointer w-full'
+
+    btn.addEventListener('click', () => {
+      activeProject = project.name
+      renderTasks(taskManager, projectManager, activeProject)
+    })
     btn.innerHTML = `
       <i class="fa-solid fa-circle text-sm mt-1" style="color:${project.color}"></i>
       <span class="text-sm">${project.name}</span>
@@ -77,6 +83,7 @@ function renderProject() {
       div.remove()
 
       projectManager.deleteProject(project.id)
+      renderTasks(taskManager, projectManager, activeProject)
     })
 
     div.appendChild(btn)
@@ -85,6 +92,18 @@ function renderProject() {
     list.appendChild(div)
   })
 }
+
+document.getElementById('allTasksBtn').addEventListener('click', () => {
+  activeProject = 'All'
+  renderTasks(taskManager, projectManager, activeProject)
+})
+
+let floatingBtn = document.createElement('button')
+floatingBtn.setAttribute('data-open-task', '')
+floatingBtn.className =
+  'fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center z-50 cursor-pointer'
+floatingBtn.innerHTML = '<i class="fa-solid fa-plus"></i>'
+document.body.appendChild(floatingBtn)
 
 function renderProjectOptions() {
   const select = document.getElementById('taskProject')
@@ -98,7 +117,7 @@ function renderProjectOptions() {
     select.appendChild(option)
   })
 }
-
+// Task creation button
 const tasksBtn = document.getElementById('createTaskBtn')
 tasksBtn.addEventListener('click', () => {
   const title = document.getElementById('taskTitle').value.trim()
@@ -117,7 +136,7 @@ tasksBtn.addEventListener('click', () => {
     taskManager.addTask(title, description, project, status, priority)
   }
 
-  renderTasks(taskManager, projectManager)
+  renderTasks(taskManager, projectManager, activeProject)
   closeProject()
   document.getElementById('taskTitle').value = ''
   document.getElementById('taskDescription').value = ''
@@ -130,11 +149,4 @@ document.addEventListener('click', (e) => {
   }
 })
 
-const floatingBtn = document.createElement('button')
-floatingBtn.setAttribute('data-open-task', '')
-floatingBtn.className =
-  'fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center z-50 cursor-pointer'
-floatingBtn.innerHTML = '<i class="fa-solid fa-plus"></i>'
-document.body.appendChild(floatingBtn)
-
-renderTasks(taskManager, projectManager)
+renderTasks(taskManager, projectManager, activeProject)

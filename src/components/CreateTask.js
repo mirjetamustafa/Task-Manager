@@ -1,6 +1,10 @@
 import { fillForm } from './utils.js'
 
-export default function renderTask(taskManager, projectManager) {
+export default function renderTask(
+  taskManager,
+  projectManager,
+  activeProject = 'All'
+) {
   const taskList = document.getElementById('task')
   taskList.innerHTML = ''
 
@@ -13,6 +17,13 @@ export default function renderTask(taskManager, projectManager) {
     floatingBtn.innerHTML = '<i class="fa-solid fa-plus"></i>'
     document.body.appendChild(floatingBtn)
   }
+
+  const tasks = taskManager.tasks || []
+
+  const filteredTasks =
+    activeProject === 'All'
+      ? tasks
+      : tasks.filter((task) => task.project === activeProject)
 
   if (taskManager.tasks.length === 0) {
     const div = document.createElement('div')
@@ -34,7 +45,7 @@ export default function renderTask(taskManager, projectManager) {
     `
     taskList.appendChild(div)
   } else {
-    taskManager.tasks.forEach((task) => {
+    filteredTasks.forEach((task) => {
       const card = document.createElement('div')
 
       const priorityBorder = {
@@ -116,7 +127,7 @@ export default function renderTask(taskManager, projectManager) {
       card.querySelector('[data-delete-task]').addEventListener('click', () => {
         if (confirm('Are you sure you want to delete ths task?')) {
           taskManager.deleteTask(task.id)
-          renderTask(taskManager, projectManager)
+          renderTask(taskManager, projectManager, activeProject)
         }
       })
 
