@@ -11,7 +11,6 @@ import {
   initColorPicker,
 } from './components/ui.js'
 import renderTasks from './components/CreateTask.js'
-import { fillForm } from './components/utils.js'
 import { ProjectManager } from './components/projectManager.js'
 import { TaskManager } from './components/taskManager.js'
 
@@ -87,6 +86,19 @@ function renderProject() {
   })
 }
 
+function renderProjectOptions() {
+  const select = document.getElementById('taskProject')
+
+  select.innerHTML = ''
+
+  projectManager.projects.forEach((project) => {
+    const option = document.createElement('option')
+    option.value = project.name
+    option.textContent = project.name
+    select.appendChild(option)
+  })
+}
+
 const tasksBtn = document.getElementById('createTaskBtn')
 tasksBtn.addEventListener('click', () => {
   const title = document.getElementById('taskTitle').value.trim()
@@ -105,7 +117,7 @@ tasksBtn.addEventListener('click', () => {
     taskManager.addTask(title, description, project, status, priority)
   }
 
-  renderTasks(taskManager)
+  renderTasks(taskManager, projectManager)
   closeProject()
   document.getElementById('taskTitle').value = ''
   document.getElementById('taskDescription').value = ''
@@ -113,6 +125,7 @@ tasksBtn.addEventListener('click', () => {
 
 document.addEventListener('click', (e) => {
   if (e.target.closest('[data-open-task]')) {
+    renderProjectOptions()
     createProject()
   }
 })
@@ -124,4 +137,4 @@ floatingBtn.className =
 floatingBtn.innerHTML = '<i class="fa-solid fa-plus"></i>'
 document.body.appendChild(floatingBtn)
 
-renderTasks(taskManager)
+renderTasks(taskManager, projectManager)

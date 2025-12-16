@@ -1,6 +1,6 @@
 import { fillForm } from './utils.js'
 
-export default function renderTask(taskManager) {
+export default function renderTask(taskManager, projectManager) {
   const taskList = document.getElementById('task')
   taskList.innerHTML = ''
 
@@ -56,6 +56,12 @@ export default function renderTask(taskManager) {
 
       card.className = `border-l-4 ${borderColor} m-2 p-2 bg-white shadow-sm rounded-md hover:shadow-lg`
 
+      const project = projectManager.projects.find(
+        (p) => p.name === task.project
+      )
+
+      const projectColor = project ? project.color : '#3b82f6'
+
       card.innerHTML = `
      <div class="flex justify-between">
                 <p class="text-sm font-medium">${task.title}</p>
@@ -91,7 +97,8 @@ export default function renderTask(taskManager) {
                 </p>
                 <div class="flex gap-1 mt-1.5">
                   <i
-                    class="fa-solid fa-circle text-xs text-blue-500 mt-0.5"
+                    class="fa-solid fa-circle text-xs mt-0.5"
+                    style="color:${projectColor}"
                   ></i>
                   <span class="text-xs">${task.project}</span>
                 </div>
@@ -109,7 +116,7 @@ export default function renderTask(taskManager) {
       card.querySelector('[data-delete-task]').addEventListener('click', () => {
         if (confirm('Are you sure you want to delete ths task?')) {
           taskManager.deleteTask(task.id)
-          renderTask(taskManager)
+          renderTask(taskManager, projectManager)
         }
       })
 
