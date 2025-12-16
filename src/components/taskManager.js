@@ -16,9 +16,25 @@ export class TaskManager {
     this.tasks = this.tasks.filter((prev) => prev.id !== id)
   }
 
-  toggleTask(id) {
-    const task = this.tasks.find((t) => t.id === id)
-    if (task) task.competed = !task.competed
+  editTask(id) {
+    this.editingTaskId = id
+  }
+
+  getTaskToEdit() {
+    return this.tasks.find((task) => task.id === this.editingTaskId)
+  }
+
+  updateTask(title, descrption, project, status, priority) {
+    const task = this.getTaskToEdit()
+    if (!task) return
+
+    task.title = title
+    task.descrption = descrption
+    task.project = project
+    task.status = status
+    task.priority = priority
+
+    this.editingTaskId = null
   }
 
   search(keyword) {

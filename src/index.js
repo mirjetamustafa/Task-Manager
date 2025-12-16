@@ -11,7 +11,7 @@ import {
   initColorPicker,
 } from './components/ui.js'
 import renderTasks from './components/CreateTask.js'
-
+import { fillForm } from './components/utils.js'
 import { ProjectManager } from './components/projectManager.js'
 import { TaskManager } from './components/taskManager.js'
 
@@ -99,7 +99,12 @@ tasksBtn.addEventListener('click', () => {
     alert('This is required')
     return
   }
-  taskManager.addTask(title, description, project, status, priority)
+  if (taskManager.editingTaskId) {
+    taskManager.updateTask(title, description, project, status, priority)
+  } else {
+    taskManager.addTask(title, description, project, status, priority)
+  }
+
   renderTasks(taskManager)
   closeProject()
   document.getElementById('taskTitle').value = ''

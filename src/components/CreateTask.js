@@ -1,3 +1,5 @@
+import { fillForm } from './utils.js'
+
 export default function renderTask(taskManager) {
   const taskList = document.getElementById('task')
   taskList.innerHTML = ''
@@ -57,9 +59,24 @@ export default function renderTask(taskManager) {
       card.innerHTML = `
      <div class="flex justify-between">
                 <p class="text-sm font-medium">${task.title}</p>
-                <button class="text-sm text-gray-600 cursor-pointer">
-                  <i class="fa-solid fa-ellipsis-vertical"></i>
-                </button>
+               
+                <div class="flex gap-2">
+                  <button
+                    data-edit-task="${task.id}"
+                    class="text-blue-500 hover:text-blue-700 text-sm cursor-pointer"
+                    title="Edit task"
+                  >
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+
+                  <button
+                    data-delete-task="${task.id}"
+                    class="text-red-500 hover:text-red-700 text-sm cursor-pointer"
+                    title="Delete task"
+                  >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </div>
               
               <p class="text-gray-700 text-xs">
@@ -87,6 +104,23 @@ export default function renderTask(taskManager) {
     `
 
       taskList.appendChild(card)
+
+      //Delete
+      card.querySelector('[data-delete-task]').addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete ths task?')) {
+          taskManager.deleteTask(task.id)
+          renderTask(taskManager)
+        }
+      })
+
+      //Edit
+
+      const editBtn = card.querySelector('[data-edit-task]')
+      editBtn.addEventListener('click', () => {
+        taskManager.editTask(task.id)
+        fillForm(task)
+        document.querySelector('[data-open-task]').click()
+      })
     })
   }
 }
