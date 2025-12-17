@@ -167,19 +167,48 @@ tasksBtn.addEventListener('click', () => {
 // ------------------------- Search input -------------------
 
 const searchInput = document.getElementById('searchInput')
+const taskStatusFilter = document.getElementById('taskStatusFilter')
+const taskPriorityFilter = document.getElementById('taskPriorityFilter')
 
-searchInput.addEventListener('input', (e) => {
-  const keyword = e.target.value.trim()
+function filterTasks() {
+  const keyword = searchInput.value.trim().toLowerCase()
+  const status = taskStatusFilter.value
+  const priority = taskPriorityFilter.value
 
-  const searchTasks = keyword ? taskManager.search(keyword) : taskManager.tasks
+  let filtered = taskManager.tasks
 
-  const filteredByProject =
-    activeProject === 'All'
-      ? searchTasks
-      : searchTasks.filter((task) => task.project === activeProject)
+  // filter by project
+  if (activeProject !== 'All') {
+    filtered = filtered.filter((task) => task.project === activeProject)
+  }
 
-  renderTasks(taskManager, projectManager, activeProject, filteredByProject)
-})
+  // filter by keyword
+  if (keyword) {
+    filtered = filtered.filter((task) =>
+      task.title.toLowerCase().includes(keyword)
+    )
+  }
+
+  // filter by status
+  if (status && status !== 'All') {
+    filtered = filtered.filter((task) => task.status === status)
+  }
+
+  // filter by priority
+  if (priority && priority !== 'All') {
+    filtered = filtered.filter((task) => task.priority === priority)
+  }
+  renderTasks(taskManager, projectManager, activeProject, filtered)
+}
 
 // ----------- Initial Render ------------------------
+
+// eventListener for search input
+searchInput.addEventListener('input', filterTasks)
+
+// eventListener for status select
+taskStatusFilter.addEventListener('change', filterTasks)
+
+taskPriorityFilter.addEventListener('change', filterTasks)
+
 renderTasks(taskManager, projectManager, activeProject)
