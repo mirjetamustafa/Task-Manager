@@ -4,4 +4,6 @@ export function fillForm(task) {
   document.getElementById('taskProject').value = task.project
   document.getElementById('taskStatus').value = task.status
   document.getElementById('taskPriority').value = task.priority
+
+  document.getElementById('createTaskBtn').textContent = 'Update Task'
 }
