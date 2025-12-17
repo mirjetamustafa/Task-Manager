@@ -3,17 +3,24 @@ import { fillForm } from './utils.js'
 export default function renderTask(
   taskManager,
   projectManager,
-  activeProject = 'All'
+  activeProject = 'All',
+  customTasks = null
 ) {
   const taskList = document.getElementById('task')
   taskList.innerHTML = ''
 
-  const tasks = Array.isArray(taskManager.tasks) ? taskManager.tasks : []
+  const tasks = Array.isArray(customTasks)
+    ? customTasks
+    : Array.isArray(taskManager.tasks)
+    ? taskManager.tasks
+    : []
 
   const filteredTasks =
     activeProject === 'All'
       ? tasks
       : tasks.filter((task) => task.project === activeProject)
+
+  // ---------------- Floating add button -------------------------
 
   let floatingBtn = document.querySelector('.floating-add-btn')
   if (!floatingBtn) {
@@ -25,6 +32,7 @@ export default function renderTask(
     document.body.appendChild(floatingBtn)
   }
 
+  // ------------- empty task -----------------------
   if (!filteredTasks || filteredTasks.length === 0) {
     const div = document.createElement('div')
     div.className = 'absolute inset-0 flex flex-col items-center justify-center'
@@ -40,10 +48,9 @@ export default function renderTask(
             Create your first task
           </button>
         </div>
-       
-       
     `
     taskList.appendChild(div)
+
     return
   }
 

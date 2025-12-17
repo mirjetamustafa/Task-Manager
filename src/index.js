@@ -164,5 +164,22 @@ tasksBtn.addEventListener('click', () => {
   document.getElementById('taskDescription').value = ''
 })
 
+// ------------------------- Search input -------------------
+
+const searchInput = document.getElementById('searchInput')
+
+searchInput.addEventListener('input', (e) => {
+  const keyword = e.target.value.trim()
+
+  const searchTasks = keyword ? taskManager.search(keyword) : taskManager.tasks
+
+  const filteredByProject =
+    activeProject === 'All'
+      ? searchTasks
+      : searchTasks.filter((task) => task.project === activeProject)
+
+  renderTasks(taskManager, projectManager, activeProject, filteredByProject)
+})
+
 // ----------- Initial Render ------------------------
 renderTasks(taskManager, projectManager, activeProject)
